@@ -4,18 +4,22 @@ BASIC OPERATORS
  Assignment operator (=)
     В отличии от Си оператор присваивания не возвращает ни какого значения.
     a = b
+    c = 1_000_000
     let (x, y) = (2, 3)
+    var year = 1988
+    let name1 = "Andrey", name2 = "Vitaliy"
  
  Arithmetic operators (+, -, *, /)
     В отличие от Си swift не допускает переполнения типа. ?????
     
- Remainder operator (%)
-    -9 % 4   // -1
+ Remainder operator (%) .truncatingRemainder(dividingBy: )
+    -9 % 4   // -1                                                         Для целых чисел
+    целое/дробноеЧисло.truncatingRemainder(dividingBy: целое/дробноеЧисло) Для целых или дробных чисел.
  
  Unary minus operator (-)
     -54.43
  
- Compound assignment operators (+=, -=, *=, /=)
+ Compound assignment operators (+=, -=, *=, /=, %=)
     a *= 4
  
  Comparison operators (>, <, >=, <=, ==, !=, ===, !==) ?????
