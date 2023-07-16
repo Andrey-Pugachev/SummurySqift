@@ -21,7 +21,8 @@ CLOSURE
  
      func printName(nextName: () -> String) {
          // какой-либо код
-         print(nextName())
+         print(nextName())              Поскольку теперь параметр nextName - это функция (замыкание)
+                                        к ней нужно обращаться добавляя () - скобки.
      }
      printName(nextName: { arrayOfNames.remove(at: 0) }) Авот если передать замыкание
                                         то оно будет испольховаться только в момент его
@@ -33,11 +34,23 @@ CLOSURE
      printName(nextName: arrayOfNames.remove(at: 0)) А в двнном случае можно избавится от
                                         фигурных скобок.
 
- 6. Сбегающие замыкания. ?????????????????????????????????????????????
+ 6. Сбегающие замыкания. (Так же вместо @escaping можно ставить inout)
+     var arrayOfClosures: [()->Int] = []
+     func addNewClosureInArray(_ newClosure: ()->Int) {
+         arrayOfClosures.append(newClosure)     // ОШИБКА так как newClouser это внутренний
+                                                параметр - замыкание поэтому его невозможно
+                                                добавить во внешний массив.
  
+     func addNewClosureInArray(_ newClosure: @escaping ()->Int){  Теперь можно добавлять.
+         arrayOfClosures.append(newClosure)
+     }
+     addNewClosureInArray({return 100})
+     addNewClosureInArray{return 1000}          Вариант без скобок допускается если один параметр.
+     arrayOfClosures[0]() // 100
+     arrayOfClosures[1]() // 1000
+
  
- 
- 
+
  Синтаусис замыкания:
  { (ВходныеПараменты) -> ТипВыходногоЗначения in
     телоЗамыкания
@@ -106,20 +119,6 @@ CLOSURE
  operation(32, 54) {$0 * $1}            Если замыкание состоит из одного выражения, можно опустить
                                         имена аргументов и в том числе in. А так же можно вынести
                                         замыкание за скобку.
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
  
  */
