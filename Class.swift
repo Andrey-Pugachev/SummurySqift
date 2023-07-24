@@ -90,4 +90,11 @@ CLASS
  SalesManager.phoneModel
  SalesManager.companyTitle
  
+ 
+ 
+ 
+ СОЧИНЕНИЕ НА ТЕМУ КЛАССОВ=============================================================
+ 
+ 
+ 
  */
