@@ -94,16 +94,128 @@
  
  ПОЛИМОРФИЗМ (POLYMORPHISM)=======================================================
  
+ Полиморфизм- это способность классов переопределять методы, свойства и инициализаторы классов родителей.
+ В рамках полиморфзма мы можем переопределять только:
+    1) ВЫЧИСЛЯЕМЫЕ свойства (При этом тип этого свойства не должен меняться!).
+    2) Инициализаторы (При этом название тип всех его аргументов не должен меняться!).
+    3) Методы. (При этом функциональный тип этого метода не должен меняться!)
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+ //СОЗДАНИЕ РОДИТЕЛЬСКОГО КЛАССА========================================
+ class Teacher {
+     let name: String
+     var description: String {
+         return "hello my name is \(name)."
+     }
+     init (name: String) {
+         self.name = name
+     }
+     func teach() {
+         print("I teach students right now!")
+     }
+ }
+ //let teacher = Teacher(name: "Andrey")
+ //teacher.name
+ //teacher.description
+ //teacher.teach()
+
+
+ //СОЗДАНИЕ КЛАССА НАСЛЕДНИКА ОТ КЛАССА Teacher===================================
+ //class IOSTeacher: Teacher {
+ //    let speciality: String
+ //
+ //    init (name: String, speciality: String) {
+ //        self.speciality = speciality
+ //        super.init(name: name)
+ //    }
+ //
+ //    func iosCoding() {
+ //        print("I code new application right now!")
+ //    }
+ //}
+ //let iosTeacher = IOSTeacher(name: "Fedya", speciality: "IOS")
+ //iosTeacher.speciality
+ //iosTeacher.name
+ //iosTeacher.teach()
+ //iosTeacher.iosCoding()
+ //iosTeacher.description
+
+
+ //ПЕРЕОПРЕДЕЛЕНИЕ РОДИТЕЛЬСКОГО СВОЙСТВА В КЛАССЕ НАСЛЕДНИКЕ======================
+ //class IOSTeacher: Teacher {
+ //    let speciality: String
+ //    override var description: String {        //Переопределяем свойство description.
+ //        return "hello my name is \(name). I'am \(speciality) teacher."
+ //    }
+ //    init (name: String, speciality: String) {
+ //        self.speciality = speciality
+ //        super.init(name: name)
+ //    }
+ //    func iosCoding() {
+ //        print("I code new application right now!")
+ //    }
+ //}
+ //iosTeacher.description
+
+
+ //ПЕРЕОПРЕДЕЛЕНИЕ ИНИЦИАЛИЗАТОРА В КЛАССЕ НАСЛЕДНИКЕ===============================
+ //class IOSTeacher: Teacher {
+ //    let speciality: String
+ //    override var description: String {
+ //        return "hello my name is \(name). I'am \(speciality) teacher."
+ //    }
+ //    init (name: String, speciality: String) {
+ //        self.speciality = speciality
+ //        super.init(name: name)
+ //    }
+ //    override init(name: String) {
+ //        self.speciality = "IOS"     //Переопределяем свойство speciality в инициализаторе.
+ //        super.init(name: name)      //Теперь через экземпляр данного класса мы будем иметь
+ //    }                               //доступ к двум инициализаторам.
+ //    func iosCoding() {
+ //        print("I code new application right now!")
+ //    }
+ //}
+ ////При инициализации значеения константе через переопределенный инициализатор где есть только параметр name: String, параметр speciality: String будет задаваться автоматически "Front".
+ //let iosTeacher2 = IOSTeacher(name: "Andrey")
+ //iosTeacher2.description
+ ////При инициализации значеения константе через переопределенный инициализатор где есть и параметр name: String, и параметр speciality: String оба они будут задаваться при инициализации значения.
+ //let iosTeacher3 = IOSTeacher(name: "Evgeniy", speciality: "Front")
+ //iosTeacher3.description
+
+
+ ////ПЕРЕОПРЕДЕЛЕНИЕ МЕТОДА В КЛАССЕ НАСЛЕДНИКЕ=========================================
+ //class IOSTeacher: Teacher {
+ //    let speciality: String
+ //    //Переопределение родительского ВЫЧИСЛЯЕМОГО свойства.
+ //    override var description: String {
+ //        return "hello my name is \(name). I'am \(speciality) teacher."
+ //    }
+ //
+ //    init (name: String, speciality: String) {
+ //        self.speciality = speciality
+ //        super.init(name: name)
+ //    }
+ //    //Переопределение родительского инициализатора.
+ //    override init(name: String) {
+ //        self.speciality = "IOS"
+ //        super.init(name: name)
+ //    }
+ //
+ //    func iosCoding() {
+ //        print("I code new application right now!")
+ //    }
+ //    //Переопределение родительской функции.
+ //    override func teach() {
+ //        print("I teach students \(speciality) development right now!")
+ //    }
+ //
+ //    //ПЕРЕГРУЗКА ФУНКЦИИ - мы создаю вторую функцию с именем teach(), но с другим функциональным типом и теперь при обращении к методу с данным именем через имя экземпляра класса у нас будет выбор между teach() и teach(hours:)
+ //    func teach(hours: Int) {
+ //        print("I teach students \(speciality) development for \(hours) hours!")
+ //    }
+ //}
+ //let iosTeacher3 = IOSTeacher(name: "Vitaliy", speciality: "AbraKadabra")
+ //iosTeacher3.teach()
+ //iosTeacher3.teach(hours: 5)
  
  */
