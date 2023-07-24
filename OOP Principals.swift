@@ -100,7 +100,7 @@
     2) Инициализаторы (При этом название тип всех его аргументов не должен меняться!).
     3) Методы. (При этом функциональный тип этого метода не должен меняться!)
  
- //СОЗДАНИЕ РОДИТЕЛЬСКОГО КЛАССА========================================
+ //СОЗДАНИЕ РОДИТЕЛЬСКОГО КЛАССА
  class Teacher {
      let name: String
      var description: String {
@@ -119,7 +119,7 @@
  //teacher.teach()
 
 
- //СОЗДАНИЕ КЛАССА НАСЛЕДНИКА ОТ КЛАССА Teacher===================================
+ //СОЗДАНИЕ КЛАССА НАСЛЕДНИКА ОТ КЛАССА Teacher
  //class IOSTeacher: Teacher {
  //    let speciality: String
  //
@@ -140,7 +140,7 @@
  //iosTeacher.description
 
 
- //ПЕРЕОПРЕДЕЛЕНИЕ РОДИТЕЛЬСКОГО СВОЙСТВА В КЛАССЕ НАСЛЕДНИКЕ======================
+ //ПЕРЕОПРЕДЕЛЕНИЕ РОДИТЕЛЬСКОГО СВОЙСТВА В КЛАССЕ НАСЛЕДНИКЕ
  //class IOSTeacher: Teacher {
  //    let speciality: String
  //    override var description: String {        //Переопределяем свойство description.
@@ -157,7 +157,7 @@
  //iosTeacher.description
 
 
- //ПЕРЕОПРЕДЕЛЕНИЕ ИНИЦИАЛИЗАТОРА В КЛАССЕ НАСЛЕДНИКЕ===============================
+ //ПЕРЕОПРЕДЕЛЕНИЕ ИНИЦИАЛИЗАТОРА В КЛАССЕ НАСЛЕДНИКЕ
  //class IOSTeacher: Teacher {
  //    let speciality: String
  //    override var description: String {
@@ -183,7 +183,7 @@
  //iosTeacher3.description
 
 
- ////ПЕРЕОПРЕДЕЛЕНИЕ МЕТОДА В КЛАССЕ НАСЛЕДНИКЕ=========================================
+ ////ПЕРЕОПРЕДЕЛЕНИЕ МЕТОДА В КЛАССЕ НАСЛЕДНИКЕ
  //class IOSTeacher: Teacher {
  //    let speciality: String
  //    //Переопределение родительского ВЫЧИСЛЯЕМОГО свойства.
@@ -218,4 +218,118 @@
  //iosTeacher3.teach()
  //iosTeacher3.teach(hours: 5)
  
+ 
+ 
+ ИНКАПСУЛЯЦИЯ (ENCAPSULATION)=======================================================
+ 
+ Инкапсуляция - это принцып размещения данных и методов работы с этими данными в одном объекты и регламентирование доступа к этим данным по средством определенных ключевиков.
+ 
+ //class Wallet {
+ ////    var balance = 0           //У нас есть общедоступное свойство balance c которым мы
+ //                                //можем сделать всё, что кгодно
+ ////    func add(cash: Int) {
+ ////        self.balance += cash
+ ////        print(self.balance)
+ ////    }
+ ////    func withdraw(cash: Int) -> Int {
+ ////        guard cash <= balance else {
+ ////            return 0
+ ////        }
+ ////        balance -= cash
+ ////        return cash
+ ////    }
+ ////}
+ ////var wallet = Wallet()
+ ////wallet.balance = 5000     //Безконтрольно создаём баланс.
+ ////wallet.balance -= 10000   //Беконтрольно меняем его.
+ //
+ //
+ ////ИНКАПСУЛЯЦИЯ СВОЙСТВА - что бы избежать безконтрольного обращения к баланcу нашего кошелька, делаем его приватным при поможи ключевика privat.
+ ////class Wallet {
+ ////    privat var balance = 0  //Теперь мы не можем обращаться к приватному свойству balance
+ //                              //что бы теперь осуществлять манипуляции с balance мы должны
+ //                              //обращаться ни к самому свойству balance, а к методам по
+ //                              //по работе с ним: add(), withdraw() и getBalance().
+ ////    func add(cash: Int) {
+ ////        self.balance += cash
+ ////        print(self.balance)
+ ////    }
+ ////    func withdraw(cash: Int) -> Int {
+ ////        guard cash <= balance else {
+ ////            return 0
+ ////        }
+ ////        balance -= cash
+ ////        return cash
+ ////    }
+ ////    func getBalance() -> Int {
+ ////        return self.balance
+ ////    }
+ ////}
+ //
+ //
+ ////ИНКАПСУЛЯЦИЯ ИНИЦИАЛИЗАТОРА - осуществляется для того, что бы нельзя было осуществлять создание экземпляров кокого-либо класса из вне этого класса.
+ //
+ //class Wallet {
+ //    static let shared = Wallet()      //Складываем экземпляр класса Wallet в статическое свойство shared (общепринятое название).теперь есть один общий на всех кошелёк.
+ //    private init() { }      //Эта запись значит6 что данным инициализатором мы можем пользоваться только внутри класса Wallet и мы им воспользовались один раз когда создали экземпляр класса Wallet  и полодили его в свойство shared. С наруже инициализатор не доступен и соответственно создано новые эезеп=мпляры класса Wakket из вне невозможно.
+ //    private var balance = 0
+ //    func add(cash: Int) {
+ //        self.balance += cash
+ //        print(self.balance)
+ //    }
+ //    func withdraw(cash: Int) -> Int {
+ //        guard cash <= balance else {
+ //            return 0
+ //        }
+ //        balance -= cash
+ //        return cash
+ //    }
+ //    func getBalance() -> Int {
+ //        return self.balance
+ //    }
+ //}
+ ////class Shop {
+ ////    var wallet = Wallet() //В даном случае это разные кошельки в каждом классе.
+ ////}
+ ////class Job {
+ ////    var wallet = Wallet() //В даном случае это разные кошельки в каждом классе.
+ ////}
+ ////Для того, что бы у нас был один единый Экземпляр класса Wallet мы должны воспользоваться микропаттерном singleTone (одиночка) а для этого обявляем статическое свойство shared и  кидаем туда экземпляр класса Wallet. а после этого мы можем обращаться именно к этому экземпляру класса Wallet в любой часли программы, через свойство shared.
+ ////class Shop {
+ ////    var wallet = Wallet.shared //Ссылка на общий кашелек.
+ ////}
+ ////class Job {
+ ////    var wallet = Wallet.shared //Ссылка на общий кашелек.
+ ////}
+ ////Но мы всё еще можем создать другой экземпляр класс Wallet и что бы запретить это делать нам надосделать приватный инициализатор. private init() { }. Теперь из вне мы не можем создать экземпляр класса Wallet.
+ ////var aushan = Shop()
+ ////var factory = Job()
+ //
+ //
+ ////ИНКАПСУЛЯЦИЯ МЕТОДА - позволяет сркыть метод от использования вне его класса, и использовать только внутри этого класса.
+ //
+ //class Person {
+ //    let wallet = Wallet.shared
+ //    var goods = [String]()
+ //    private func get(goods: String) {       //Что бы нельзя было образаться в этим функциям
+ //        self.goods.append(goods)            //из вне мы их инкапсулируем, их можно
+ //        print("Good \(goods) is bought.")   //использовать только внутри этого класса.
+ //    }
+ //    private func give(money: Int) {         //Что бы нельзя было образаться в этим функциям
+ //        self.wallet.withdraw(cash: money)   //из вне мы их инкапсулируем, их можно
+ //        print("Check is \(money).")         //использовать только внутри этого класса.
+ //    }
+ //    func buy(good: String, forMonye: Int) {             //Тут мы будем испольховать наши
+ //        guard forMonye <= wallet.getBalance() else {    //приватные функции, а не вне этого
+ //            return                                      //класса.
+ //        }
+ //        get(goods: good)
+ //        give(money: forMonye)
+ //    }
+ //}
+ //let vasya = Person()
+ //vasya.wallet.add(cash: 80000)
+ //vasya.buy(good: "Iphone13 mini", forMonye: 69990)
+ //vasya.wallet.getBalance()
+
  */
