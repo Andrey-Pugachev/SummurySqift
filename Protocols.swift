@@ -106,22 +106,60 @@ PROTOCOLS
  
  
  ПАТТЕРН ДЕЛЕГАТ=========================================================
- - Делегат - это тот, кто ставит задачу.
+ - Делегатор - это тот, кто ставит задачу.
  - Тип Делегата - это протокол, который описывает, какими свойствами и методамид должен обладать Делегат.
  - Делегат - это тот  кто исполняет задачу.
+ 
+ Прихожу в кофейью и прошу сварить мне кофе, в кофейне есть барись, который принимает деньги и варит мне кофе, то есть я делегатор (даю задачу сварить мне кофе), а барист делегат (пинимает мои деньги и варит мне кофе). При этом в протоколе описывается что должен уметь делать баристо (принемать деньги, варить и отдавать мне кофе в определенном колличестве и отдавать мне сдачу)
+ 
+ protocol CoffeeMakerDelegate {             //Протокол описывающий свойства и методы
+     func makeCoffee(amount: Int) -> Int    //К/М, у нас это функция делать кофе.
+ }
+ class Client {                             //Создаёмм класс клиент.
+     var name = "Andrey"
+     var coffeeMaker: CoffeeMakerDelegate?  //Свойство в котором будет храниться текущий К/М
+     func visitCoffeeHouse(coffeeMaker: CoffeeMakerDelegate) { //вход в кофейню и передача в
+         self.coffeeMaker = coffeeMaker                        //аргументе текущего К/М.
+     }
+     func goOutCoffeeHouse() {          //Покидание кофейни и соответственно замена текущего
+         self.coffeeMaker = nil         //К/М нилом.
+     }
+     func buyCoffee(amount: Int) {                   //Покупка кофе с проверкой наличия
+         guard let delegate = coffeeMaker else {     //текущего К/М.
+             print("You are not at a coffee house!")
+             return
+         }
+         let count = delegate.makeCoffee(amount: amount)
+         print("You bought \(count) cups of coffee.")
+     }
+ }
+ struct Officiant: CoffeeMakerDelegate {     //Подписываем структуру Officiant под протокол
+     func makeCoffee(amount: Int) -> Int {   //CoffeeMakerDelegate => она содержит метод
+         let price = 350                     //деланья кофе с определенной ценой.
+         let count = amount / price
+         return count
+     }
+ }
+ struct Barista: CoffeeMakerDelegate {       //Подписываем структуру Barista под протокол
+     func makeCoffee(amount: Int) -> Int {   //CoffeeMakerDelegate => она содержит метод
+         let price = 100                     //деланья кофе с определенной ценой.
+         let count = amount / price
+         return count
+     }
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+ }
+
+ let officiant = Officiant()     //Создаём экземпляры.
+ let client = Client()
+ let barista = Barista()
+
+ client.visitCoffeeHouse(coffeeMaker: officiant) //Вошли в кофейню где К/М officiant.
+ client.buyCoffee(amount: 2000)                  //Купили кофе на 2000.
+ client.goOutCoffeeHouse()                       //Покинули кофейню.
+ client.visitCoffeeHouse(coffeeMaker: barista)   //Вошли в кофейню где К/М barista.
+ client.buyCoffee(amount: 400)                   //Купили кофе на 2000.
+ client.goOutCoffeeHouse()                       //Покинули кофейню.
+ client.buyCoffee(amount: 600)                   //Попытались купить кофе на 2000, но
+                                                 //поскольку мы не в кофейне, получили отказ.
  
  */
